@@ -1,0 +1,52 @@
+/* style.css */
+
+/* Existing styles for your other elements */
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Style each individual prayer time item */
+li {
+    margin-bottom: 10px;
+}
+
+/* Prayer time item container (card-like) */
+.prayer-time-card {
+    background-color: #3498db; /* Blue background color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 15px; /* Padding around each item */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Box shadow for a raised effect */
+    color: #fff; /* Text color */
+    display: flex; /* Flex layout to align content */
+    justify-content: space-between; /* Space content evenly */
+    align-items: center; /* Center content vertically */
+}
+
+/* Add some space between the container and text */
+.prayer-time-card span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Customize background colors for each prayer time */
+.fajr {
+    background-color: #e74c3c; /* Red for Fajr */
+}
+
+.dhuhr {
+    background-color: #27ae60; /* Green for Dhuhr */
+}
+
+.asr {
+    background-color: #f1c40f; /* Yellow for Asr */
+}
+
+.maghrib {
+    background-color: #9b59b6; /* Purple for Maghrib */
+}
+
+.isha {
+    background-color: #3498db; /* Blue for Isha */
+}
