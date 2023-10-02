@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <base href="/pray-times" />
+    <base href="/pray-times/" />
     <link rel="manifest" href="manifest.json" />
     <link rel="stylesheet" href="style.css" />
     <title>Namaz Vakitleri</title>
@@ -44,7 +44,9 @@
       async function registerSW() {
         if ("serviceWorker" in navigator) {
           try {
-            await navigator.serviceWorker.register("service-worker.js");
+            await navigator.serviceWorker.register("service-worker.js", {
+              scope: "/pray-times/",
+            });
             console.log("SW registration success");
           } catch (e) {
             console.log("SW registration failed");
