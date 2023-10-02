@@ -18,3 +18,7 @@ export function removeTimeZone(inputString) {
     return inputString.replace(/\s?\(\+03\)/g, '')
 }
   
+export function currentDateText() {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+    return new Date().toLocaleDateString('tr',options)
+}

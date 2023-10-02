@@ -1,11 +1,27 @@
+import  './reload.js'
+import { currentDateText } from './utils.js';
 
 const year = new Date().getFullYear()
 const month = new Date().getMonth() + 1
-const apiUrl =`https://api.aladhan.com/v1/calendarByCity/${year}/${month}?country=tr&city=bursa`;
 
+function setDateTitle(params) {
+    const dateTextEl = document.querySelector('#date-text')
+    dateTextEl.textContent = currentDateText()
+}
 
+function setLocation() {
+    const locationEl = document.querySelector('#location')
+    const locationInStorage = localStorage.getItem('location')
+    if(locationInStorage) {
+        locationEl.textContent = locationInStorage
+    } else {
+        locationEl.textContent = 'Bursa'
+    }
+}
 
 export async function init() {
+    setDateTitle()
+    setLocation()
     if (navigator.onLine) {
         // The user is online, fetch prayer times for the next 30 days.
        await fetchPrayerTimesForNext30Days();
@@ -18,9 +34,8 @@ async function loadCachedPrayerTimes() {
     try {
         const cache = await caches.open('v1')
         const response = await cache.match('prayer-times-data')
-        if (response) {
-            return await response.json();
-        }
+        const data = await response.json()
+        return data[month]
     } catch (error) {
         console.error('Error loading cached data:', error)
     }
@@ -28,10 +43,20 @@ async function loadCachedPrayerTimes() {
 
 
 async function fetchPrayerTimesForNext30Days() {
+    const locationEl = document.querySelector('#location')
+    const location = locationEl.textContent
+    const apiUrl =`https://api.aladhan.com/v1/calendarByCity/${year}?country=tr&city=${location}`;
+    const cache = await caches.open('v1')
+    const storageYearResponse = await cache.match('prayer-times-period')
+    const storageYear = await storageYearResponse?.json?.()
+
+    if(year == storageYear) {
+        return
+    }
+
     try {
             const response = await fetch(apiUrl)
             const {data} = await response.json()
-            console.log('fetched 30 days from API');
             await cachePrayerTimesData(data);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -39,7 +64,9 @@ async function fetchPrayerTimesForNext30Days() {
     }
     
     async function cachePrayerTimesData(data) {
+        const {1: firstMonth} = data
+        const year = firstMonth[0].date.gregorian.year
         const cache = await caches.open('v1')
-        // await cache.delete('prayer-times-data')
         await cache.put('prayer-times-data', new Response(JSON.stringify(data)));
+        await cache.put('prayer-times-period', new Response(JSON.stringify(year)));
 }

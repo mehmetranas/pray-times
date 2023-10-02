@@ -2,16 +2,13 @@ import { isCurrentDate, removeTimeZone } from "./utils.js";
 
 export default function(data) {
 
-    console.log('in fnc', isCurrentDate(data[1].date.gregorian.date));
-
     const currentDate = data.find(d => {
         const {date} = d.date.gregorian
         return isCurrentDate(date)
     })
 
-    console.log({currentDate});
     if (!currentDate) return
-
+    
     const prayerTimesDiv = document.getElementById('prayer-times');
     
     // Map of prayer type to CSS class name
@@ -32,7 +29,7 @@ export default function(data) {
       'Isha': 'Yatsı',
   };
   
-    let prayerTimesHTML = '<h2>Prayer Times</h2><ul>';
+    let prayerTimesHTML = '<ul>';
   
     // Extract the first 6 prayer times and loop through them
     const first6PrayerTimes = Object.entries(currentDate.timings).slice(0, 7);
