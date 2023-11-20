@@ -1,4 +1,3 @@
-import './service-worker.js'
 import {init}  from "./service.js";
 import displayPrayerTimes from "./render.js"
 

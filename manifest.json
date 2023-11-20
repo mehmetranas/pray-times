@@ -2,7 +2,7 @@
     "name": "Namaz Vakitleri",
     "short_name": "Namaz Vakitleri",
     "description": "Namaz Vakitleri",
-    "start_url": "/pray-times/",
+    "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000000",

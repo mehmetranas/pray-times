@@ -3,9 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <base href="/pray-times/" />
-    <link rel="manifest" href="manifest.json" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./style.css" />
     <title>Namaz Vakitleri</title>
   </head>
   <body>
@@ -16,7 +15,7 @@
       <!-- <h2>Bursa</h2> -->
       <div contenteditable id="location"></div>
       <button class="reload-button">
-        <img height="20" width="20" src="reload.png" alt="reload" />
+        <img height="20" width="20" src="./reload.png" alt="reload" />
       </button>
     </section>
     <section>
@@ -38,6 +37,7 @@
     <script>
       window.addEventListener("load", async () => {
         await registerSW();
+        console.log('loaded')
       });
 
       // Register the Service Worker
@@ -45,7 +45,7 @@
         if ("serviceWorker" in navigator) {
           try {
             await navigator.serviceWorker.register("service-worker.js", {
-              scope: "/pray-times/",
+              scope: "/",
             });
             console.log("SW registration success");
           } catch (e) {
@@ -54,6 +54,6 @@
         }
       }
     </script>
-    <script type="module" src="script.js"></script>
+    <script type="module" src="./script.js"></script>
   </body>
 </html>
