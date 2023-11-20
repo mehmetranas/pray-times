@@ -78,3 +78,12 @@ li {
 .isha {
     background-color: #3498db; /* Blue for Isha */
 }
+
+.remind {
+    font-size: 12px !important;
+    background: white;
+    padding: 5px;
+    border-radius: 6px;
+    color: black;
+    font-weight: 600;
+}

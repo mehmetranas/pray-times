@@ -5,6 +5,7 @@ const cacheName = 'v1';
 const filesToCache = [
     '/',
     '/index.html',
+    '/remind.js',
     '/script.js',
     '/icon.png',
     '/reload.png',
