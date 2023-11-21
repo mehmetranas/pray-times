@@ -17,6 +17,7 @@ function setLocation() {
     } else {
         locationEl.textContent = 'Bursa'
     }
+
 }
 
 export async function init() {
@@ -25,7 +26,7 @@ export async function init() {
     if (navigator.onLine) {
         // The user is online, fetch prayer times for the next 30 days.
        await fetchPrayerTimesForNext30Days();
-    } 
+    }
 
     return await loadCachedPrayerTimes();
 }
@@ -49,8 +50,9 @@ async function fetchPrayerTimesForNext30Days() {
     const cache = await caches.open('v1')
     const storageYearResponse = await cache.match('prayer-times-period')
     const storageYear = await storageYearResponse?.json?.()
-
-    if(year == storageYear) {
+    const storageLocationResponse = await cache.match('prayer-times-location')
+    const storageLocation = await storageLocationResponse?.text?.()
+    if(year == storageYear && locationEl.textContent === storageLocation) {
         return
     }
 
@@ -62,11 +64,12 @@ async function fetchPrayerTimesForNext30Days() {
             console.error('Error fetching data:', error);
         }
     }
-    
+
     async function cachePrayerTimesData(data) {
         const {1: firstMonth} = data
         const year = firstMonth[0].date.gregorian.year
         const cache = await caches.open('v1')
         await cache.put('prayer-times-data', new Response(JSON.stringify(data)));
         await cache.put('prayer-times-period', new Response(JSON.stringify(year)));
+        await cache.put('prayer-times-location', new Response(localStorage.getItem('location')));
 }

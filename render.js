@@ -33,7 +33,6 @@ export default function(data) {
     // Extract the first 6 prayer times and loop through them
     const first6PrayerTimes = Object.entries(currentDate.timings).slice(0, 7);
     const {hours, minutes, prayerSection} = remind(first6PrayerTimes)
-    console.log({prayerSection})
     for (const [prayerType, time] of first6PrayerTimes) {
         const className = prayerTypeClassMap[prayerType] || '';
         if (prayerTypeNameMap.hasOwnProperty(prayerType)) {
